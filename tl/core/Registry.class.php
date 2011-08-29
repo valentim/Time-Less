@@ -5,23 +5,18 @@
  * 
  * 
  */
-class core_registry {
-	private static $instance;
-	private $param = array();
+class Registry {
+	private static $registry;
 	
-	private function __construct($key, $valor) {
-		$this->param[$key] = $valor;
+	private function __construct() {}
+	
+	public static function add($key, $valor) {
+		self::$registry[$key] = $valor;
 	}
 	
-	public static function getInstance($key, $valor) {
-		if(empty(self::$instance)) {
-			self::$instance = new self($key, $valor);
-		}
-		return self::$instance;
-	}
 	
-	public function get($key) {
-		return $this->param[$key];
+	public static function get($key) {
+		return self::$registry[$key];
 	}
 }
 
