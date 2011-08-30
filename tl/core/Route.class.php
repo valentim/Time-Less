@@ -18,7 +18,9 @@ class Route {
 	}
 	
 	public function getController() {
-		return (isset($this->uri[1])) ? $this->uri[1] : Registry::get('controller');
+		$controler = "controler_";
+		$controler .= (isset($this->uri[1])) ? $this->uri[1] : Registry::get('controller'); 
+		return $controler;
 	}
 	
 	public function getAction() {

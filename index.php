@@ -16,9 +16,10 @@
  /*
   * Defini‹o dos diret—rios da aplica‹o
   */
- $aplication = 'apl';
- $core = 'core';
- $modules = 'mod';
+ define('APPLICATION_PATH', realpath(dirname(__FILE__)));
+ $aplication = APPLICATION_PATH.'/tl/apl';
+ $core = APPLICATION_PATH.'/tl/core';
+ $modules = APPLICATION_PATH.'/tl/mod';
  
  /*
   * Set Include Path
@@ -26,21 +27,41 @@
  $path = array(
  	$aplication,
  	$core,
- 	$modules,
- 	get_include_path()	
+ 	$modules
  );
  
  set_include_path(implode(PATH_SEPARATOR, $path));
  
-/*
- * Configura autoloader
- */ 
-spl_autoload_extensions('.class.php');
-spl_autoload_register();
+ /*
+  * Registrando Fun›es
+  */
+ if(!function_exists('loader')) {
+ 	
+ 	/*
+	 * Configura autoloader
+	 */ 
+	function loader($className) {
+		$fileParts = explode('\\', ltrim($className, '\\'));
+		    if (false !== strpos(end($fileParts), '_')) {
+		        array_splice($fileParts, -1, 1, explode('_', current($fileParts)));
+		    }
+	    require_once implode(DIRECTORY_SEPARATOR, $fileParts) . '.class.php';
+	}
+	spl_autoload_register('loader');
+ }
+ 
  
  /*
   * Define a url
   */
-BaseUrl::getInstance("/");
+Registry::add("url", "/");
 
- 
+/*
+ * Define Controller e Action Iniciais
+ */
+Registry::add("controller", "welcome");
+Registry::add("action", "index");
+
+$route = new Route("/timeless/");
+$controler = $route->getController();
+echo new $controler($route->getAction());

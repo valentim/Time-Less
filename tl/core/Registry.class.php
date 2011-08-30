@@ -16,7 +16,10 @@ class Registry {
 	
 	
 	public static function get($key) {
-		return self::$registry[$key];
+		if(array_key_exists($key, self::$registry)){
+			return self::$registry[$key];
+		}
+		return null;
 	}
 }
 

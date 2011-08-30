@@ -7,7 +7,7 @@
 class controler_welcome extends Controler {
 	
 	public function index() {
-		echo "index";
+		$this->render('index', array('facebook'=>123));
 	}
 }
 
