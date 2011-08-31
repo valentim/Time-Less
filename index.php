@@ -54,13 +54,19 @@
  /*
   * Define a url
   */
-Registry::add("url", "/");
+$registry = Registry::getInstance();
+$registry->set('url', '/');
 
 /*
  * Define Controller e Action Iniciais
  */
-Registry::add("controller", "welcome");
-Registry::add("action", "index");
+$registry->set('controller', 'welcome');
+$registry->set('action', 'index');
+
+/*
+ * Define Banco de dados
+ */
+$registry->set("mysql", new database_pdo("mysql:host=localhost;dbname=timeless", "root", "123456"));
 
 $route = new Route("/timeless/");
 $controler = $route->getController();

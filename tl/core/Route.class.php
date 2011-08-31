@@ -10,8 +10,10 @@ class Route {
 	private $controller;
 	private $action;
 	private $param = array();
+	private $registry;
 	
 	public function __construct($u) {
+		$this->registry = Registry::getInstance();
 		$this->uri = $u;
 		$this->dismember();
 		
@@ -19,12 +21,12 @@ class Route {
 	
 	public function getController() {
 		$controler = "controler_";
-		$controler .= (isset($this->uri[1])) ? $this->uri[1] : Registry::get('controller'); 
+		$controler .= (isset($this->uri[1])) ? $this->uri[1] : $this->registry->get('controller'); 
 		return $controler;
 	}
 	
 	public function getAction() {
-		return (isset($this->uri[2])) ? $this->uri[2] : Registry::get('action');
+		return (isset($this->uri[2])) ? $this->uri[2] : $this->registry->get('action');
 	}
 	
 	public function getParam() {

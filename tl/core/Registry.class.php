@@ -6,20 +6,34 @@
  * 
  */
 class Registry {
-	private static $registry;
+	private static $instance;
+	private $registry;
 	
-	private function __construct() {}
-	
-	public static function add($key, $valor) {
-		self::$registry[$key] = $valor;
+	private function __construct() {
+		$this->registry = new ArrayObject();
 	}
 	
-	
-	public static function get($key) {
-		if(array_key_exists($key, self::$registry)){
-			return self::$registry[$key];
+	public static function getInstance() {
+		if(empty(self::$instance)) {
+			self::$instance = new self();
 		}
-		return null;
+		return self::$instance;
+	}
+	
+	public function set($key, $valor) {
+		if(!$this->registry->offsetExists($key)) {
+			$this->registry->offsetSet($key, $valor);
+		} else {
+			throw new LogicException("Chave ja registrada");
+		}
+	}
+	
+	public function get($key) {
+		if($this->registry->offsetExists($key)){
+			return $this->registry->offsetGet($key);
+		} else {
+			throw new LogicException("Registro n‹o encontrado");
+		}
 	}
 }
 
