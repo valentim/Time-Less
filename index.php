@@ -2,8 +2,8 @@
 /**
  * Time Less
  * 
- * Este arquivo contem configura��es iniciais do microframework
- * � o bookstrap do Time Less e est� em fase de testes gerais, principalmente
+ * Este arquivo contem configurações iniciais do microframework
+ * é o bookstrap do Time Less e está em fase de testes gerais, principalmente
  * de performace.
  * 
  */
@@ -14,7 +14,7 @@
  error_reporting(E_ALL);
  
  /*
-  * Defini��o dos diret�rios da aplica��o
+  * Definição dos diretórios da aplicação
   */
  define('APPLICATION_PATH', realpath(dirname(__FILE__)));
  $aplication = APPLICATION_PATH.'/tl/apl';
@@ -33,7 +33,7 @@
  set_include_path(implode(PATH_SEPARATOR, $path));
  
  /*
-  * Registrando Fun��es
+  * Registrando Funções
   */
  if(!function_exists('loader')) {
  	
