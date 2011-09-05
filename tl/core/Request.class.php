@@ -5,17 +5,17 @@
  * 
  * 
  */
-class Route {
+class Request {
 	private $uri;
 	private $controller;
 	private $action;
 	private $param = array();
 	private $registry;
 	
-	public function __construct($u) {
+	public function __construct($uri) {
 		$this->registry = Registry::getInstance();
-		$this->uri = $u;
-		$this->dismember();
+		$this->uri = $uri;
+		$this->dismemberUri();
 		
 	}
 	
@@ -38,7 +38,7 @@ class Route {
 		return $this->param;
 	}
 	
-	private function dismember() {
+	private function dismemberUri() {
 		$this->uri = substr_replace($this->uri, ' ', -strlen($this->uri), 1);
 		if(strrpos($this->uri, '/') == (strlen($this->uri) - 1)) {
 			$this->uri = substr_replace($this->uri, ' ', (strlen($this->uri) - 1), strlen($this->uri) );
