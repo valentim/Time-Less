@@ -2,8 +2,8 @@
 /**
  * Time Less
  * 
- * Este arquivo contem configura›es iniciais do microframework
- * Ž o bookstrap do Time Less e est‡ em fase de testes gerais, principalmente
+ * Este arquivo contem configuraï¿½ï¿½es iniciais do microframework
+ * ï¿½ o bookstrap do Time Less e estï¿½ em fase de testes gerais, principalmente
  * de performace.
  * 
  */
@@ -14,7 +14,7 @@
  error_reporting(E_ALL);
  
  /*
-  * Defini‹o dos diret—rios da aplica‹o
+  * Definiï¿½ï¿½o dos diretï¿½rios da aplicaï¿½ï¿½o
   */
  define('APPLICATION_PATH', realpath(dirname(__FILE__)));
  $aplication = APPLICATION_PATH.'/tl/apl';
@@ -33,7 +33,7 @@
  set_include_path(implode(PATH_SEPARATOR, $path));
  
  /*
-  * Registrando Fun›es
+  * Registrando Funï¿½ï¿½es
   */
  if(!function_exists('loader')) {
  	
@@ -68,6 +68,6 @@ $registry->set('action', 'index');
  */
 $registry->set("mysql", new database_pdo("mysql:host=localhost;dbname=timeless", "root", "123456"));
 
-$route = new Route("/timeless/");
-$controler = $route->getController();
-echo new $controler($route->getAction());
+$request = new Request("/timeless/");
+$controler = $request->getController();
+echo new $controler($request->getAction());
