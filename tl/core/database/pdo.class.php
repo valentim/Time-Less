@@ -14,15 +14,14 @@ class database_pdo {
 	public function __construct($dsn, $user, $pass) {
 		$this->dsn = $dsn;
 		$this->user = $user;
-		$this->pass = $user;
+		$this->pass = $pass;
 	}
 	
 	public function conn() {
 		try {
 			$this->pdo = new PDO($this->dsn, $this->user, $this->pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		} catch (PDOException $e) {
-			print "Error!: " . $e->getMessage() . "<br/>";
-        	die();
+        	die($e->getMessage());
 		}
 		return $this->pdo;
 	}

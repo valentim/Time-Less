@@ -17,9 +17,12 @@
   * Definição dos diretórios da aplicação
   */
  define('APPLICATION_PATH', realpath(dirname(__FILE__)));
- $aplication = APPLICATION_PATH.'/tl/apl';
- $core = APPLICATION_PATH.'/tl/core';
- $modules = APPLICATION_PATH.'/tl/mod';
+ define('MAINDIR', DIRECTORY_SEPARATOR.'tl'.DIRECTORY_SEPARATOR);
+ 
+ $aplication = APPLICATION_PATH.MAINDIR.'apl'.DIRECTORY_SEPARATOR;
+ $core = APPLICATION_PATH.MAINDIR.'core'.DIRECTORY_SEPARATOR;
+ $modules = APPLICATION_PATH.MAINDIR.'mod'.DIRECTORY_SEPARATOR;
+ $main = APPLICATION_PATH.MAINDIR;
  
  /*
   * Set Include Path
@@ -27,10 +30,29 @@
  $path = array(
  	$aplication,
  	$core,
- 	$modules
+ 	$modules,
+ 	$main
  );
  
  set_include_path(implode(PATH_SEPARATOR, $path));
+ 
+ /*
+  * Registrando tratador de erros
+  */
+ if(!function_exists('exception_handler')) {
+	 function exception_handler($exception) {
+	  echo "Uncaught exception: " , $exception->getMessage(), "\n";
+	}	
+	set_exception_handler('exception_handler');
+ }
+ 
+ if(!function_exists('error_handler')) {
+	 function error_handler($errno, $errstr, $errfile, $errline) {
+	  	die("error: $errno, $errstr, $errfile, $errline");
+	}
+	//Use our custom handler
+	set_error_handler('error_handler');
+ }
  
  /*
   * Registrando Funções
@@ -42,14 +64,14 @@
 	 */ 
 	function loader($className) {
 		$fileParts = explode('\\', ltrim($className, '\\'));
-		    if (false !== strpos(end($fileParts), '_')) {
-		        array_splice($fileParts, -1, 1, explode('_', current($fileParts)));
-		    }
+	    if (false !== strpos(end($fileParts), '_')) {
+	        array_splice($fileParts, -1, 1, explode('_', current($fileParts)));
+	    }
+	    
 	    require_once implode(DIRECTORY_SEPARATOR, $fileParts) . '.class.php';
 	}
 	spl_autoload_register('loader');
  }
- 
  
  /*
   * Define a url
@@ -66,8 +88,8 @@ $registry->set('action', 'index');
 /*
  * Define Banco de dados
  */
-$registry->set("mysql", new database_pdo("mysql:host=localhost;dbname=timeless", "root", "123456"));
+$registry->set("mysql", new database_pdo("mysql:host=127.0.0.1;dbname=timeless","root", "asdf"));
 
-$request = new Request("/timeless/");
+$request = new Request($_SERVER['REQUEST_URI']);
 $controler = $request->getController();
 echo new $controler($request->getAction());

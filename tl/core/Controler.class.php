@@ -12,7 +12,7 @@ class Controler {
 	public function __construct($action) {
 		$this->action = $action;
 		if(!method_exists($this, $this->action)) {
-			throw new Exception("Action n‹o existe");
+			throw new Exception("Action nÃ£o existe");
 		}
 		call_user_func(array($this, $this->action));
 	}
