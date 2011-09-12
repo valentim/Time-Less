@@ -18,7 +18,7 @@ class View {
 	}
 	
 	private function setRealPath() {
-		$this->view = realpath("tl".DIRECTORY_SEPARATOR."apl".DIRECTORY_SEPARATOR."view".DIRECTORY_SEPARATOR.$this->view.".php");	
+		$this->view = realpath("tl/apl/view/{$this->view}.php");	
 	}
 }
 

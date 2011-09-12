@@ -17,7 +17,7 @@ class Controler {
 		call_user_func(array($this, $this->action));
 	}
 	
-	protected function render($file, array $data) {
+	protected function render($file, array $data = array()) {
 		$this->response = new Response($file, $data);	
 	}
 	

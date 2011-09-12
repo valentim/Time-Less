@@ -32,7 +32,7 @@ class Registry {
 		if($this->registry->offsetExists($key)){
 			return $this->registry->offsetGet($key);
 		} else {
-			throw new LogicException("Registro não encontrado");
+			throw new LogicException("Registro n√£o encontrado");
 		}
 	}
 }
