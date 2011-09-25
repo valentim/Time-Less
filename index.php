@@ -92,4 +92,4 @@ $registry->set("mysql", new database_pdo("mysql:host=127.0.0.1;dbname=timeless",
 
 $request = new Request($_SERVER['REQUEST_URI']);
 $controler = $request->getController();
-echo new $controler($request->getAction());
+new $controler($request->getAction());

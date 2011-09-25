@@ -8,6 +8,7 @@
 class Controler {
 	protected $action;
 	protected $response;
+	protected $view = array();
 	
 	public function __construct($action) {
 		$this->action = $action;
@@ -17,8 +18,12 @@ class Controler {
 		call_user_func(array($this, $this->action));
 	}
 	
-	protected function render($file, array $data = array()) {
-		$this->response = new Response($file, $data);	
+	protected function addView($file, array $data = array()) {
+		array_push($this->view, array($file=>$data));
+	}
+	
+	protected function render() {
+		$this->response = new Response($this->view);	
 	}
 	
 	public function __toString() {

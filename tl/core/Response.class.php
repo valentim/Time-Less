@@ -8,12 +8,12 @@
 class Response {
 	private $response;
 	private $file;
-	private $data;
+	private $totalViews;
 	
-	public function __construct($file, $data) {
+	public function __construct($file) {
 		$view = new View($file);
 		$this->file = $view->getRealPath();
-		$this->data = $data;
+		$this->totalViews = count($file);
 		$this->saveResponse();
 	}
 	
@@ -23,23 +23,27 @@ class Response {
 	
 	private function saveResponse() {	
 		try {
-			if(is_file($this->file)) {
-				$this->saveBuffer();
+			foreach ($this->file as $view) {
+				$key = array_keys($view);
+				$value = array_values($view);
+				if(is_file($key[0])) {
+					$this->saveBuffer($key[0], $value[0]);
+				}
 			}
 		} catch (ErrorException $e) {
 			$this->response =  $e->getMessage();
 		}	
 	}
 	
-	private function saveBuffer() {
-		extract($this->data, EXTR_SKIP);
+	private function saveBuffer($view, $data) {
+		extract($data, EXTR_SKIP);
 			
 		/* Inicia Buffer para guardar as variaveis 
 		 * Exemplo array('url'=>'/');
 		 * resulta na variavel $url
 		 */ 
 		ob_start();
-		include $this->file;
-		$this->response = ob_get_clean();
+		include $view;
+		$this->response = ob_get_flush();
 	}
 }
