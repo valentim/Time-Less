@@ -12,9 +12,9 @@ class Request {
 	private $param = array();
 	private $registry;
 	
-	public function __construct($uri) {
+	public function __construct() {
 		$this->registry = Registry::getInstance();
-		$this->uri = $uri;
+		$this->uri = $_SERVER['REQUEST_URI'];
 		$this->dismemberUri();
 		
 	}

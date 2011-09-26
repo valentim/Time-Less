@@ -24,6 +24,7 @@ class Controler {
 	
 	protected function render() {
 		$this->response = new Response($this->view);	
+		$this->response->sendHeaders();
 	}
 	
 	public function __toString() {
