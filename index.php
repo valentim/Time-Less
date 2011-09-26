@@ -77,7 +77,12 @@
   * Define a url
   */
 $registry = Registry::getInstance();
-$registry->set('url', '/');
+$registry->set('url', 'http://'.$_SERVER['SERVER_NAME'].'/timeLess/');
+
+/*
+ * Define theme skin
+ */
+$registry->set('skin', $registry->get('url').'theme');
 
 /*
  * Define Controller e Action Iniciais
@@ -90,6 +95,6 @@ $registry->set('action', 'index');
  */
 $registry->set("mysql", new database_pdo("mysql:host=127.0.0.1;dbname=timeless","root", "asdf"));
 
-$request = new Request($_SERVER['REQUEST_URI']);
+$request = new Request();
 $controler = $request->getController();
 new $controler($request->getAction());
