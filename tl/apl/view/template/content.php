@@ -1,2 +1,2 @@
-<?php
-echo $facebook2;
+<?php 
+echo $content?>

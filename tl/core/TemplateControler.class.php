@@ -5,7 +5,7 @@
  * 
  * 
  */
-class Controler extends Abstract_Controler {
+class TemplateControler extends Abstract_Controler {
 	
 }
 

@@ -37,24 +37,6 @@
  set_include_path(implode(PATH_SEPARATOR, $path));
  
  /*
-  * Registrando tratador de erros
-  */
- if(!function_exists('exception_handler')) {
-	 function exception_handler($exception) {
-	  echo "Uncaught exception: " , $exception->getMessage(), "\n";
-	}	
-	set_exception_handler('exception_handler');
- }
- 
- if(!function_exists('error_handler')) {
-	 function error_handler($errno, $errstr, $errfile, $errline) {
-	  	die("error: $errno, $errstr, $errfile, $errline");
-	}
-	//Use our custom handler
-	set_error_handler('error_handler');
- }
- 
- /*
   * Registrando Funções
   */
  if(!function_exists('loader')) {
@@ -71,6 +53,32 @@
 	    require_once implode(DIRECTORY_SEPARATOR, $fileParts) . '.class.php';
 	}
 	spl_autoload_register('loader');
+ }
+ 
+ Response::sendHeaders();
+ 
+ /*
+  * Registrando tratador de erros
+  */
+ if(!function_exists('exception_handler')) {
+	 function exception_handler($exception) {
+	  $trace  = $exception->getTrace();
+	  
+	  $error[] = "Exception: {$exception->getMessage()}";
+	  $error[] = "Arquivo Inicial: {$trace[0]['file']} in line {$trace[0]['line']}";
+	  $error[] = "Arquivo Final: {$exception->getFile()} in line {$exception->getLine()}";
+	  
+	  echo implode($error, "<br />");
+	}	
+	set_exception_handler('exception_handler');
+ }
+ 
+ if(!function_exists('error_handler')) {
+	 function error_handler($errno, $errstr, $errfile, $errline) {
+	  	die("error: $errno, $errstr, $errfile, $errline");
+	}
+	//Use our custom handler
+	set_error_handler('error_handler');
  }
  
  /*
@@ -93,7 +101,7 @@ $registry->set('action', 'index');
 /*
  * Define Banco de dados
  */
-$registry->set("mysql", new database_pdo("mysql:host=127.0.0.1;dbname=timeless","root", "asdf"));
+$registry->set("mysql", new Database_Pdo("mysql:host=66.7.218.190;dbname=wwwcria_centova","wwwcria_streamin", "thi283716"));
 
 $request = new Request();
 $controler = $request->getController();

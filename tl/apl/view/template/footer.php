@@ -1,2 +1,3 @@
-<?php
-echo $facebook3;
+		</div>
+	</body>
+</html>

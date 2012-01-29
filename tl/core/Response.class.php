@@ -47,7 +47,7 @@ class Response {
 		$this->response = ob_get_flush();
 	}
 	
-	public function sendHeaders() {
+	public static function sendHeaders() {
 		header('Content-Type: text/html; charset=utf-8');
 		header('Content-language: pt-br');
 		header('P3P:CP="CAO DSP CURa ADMa DEVa TAIa PSAa PSDa IVAi IVDi CONi OUR UNRi OTRi BUS IND PHY ONL UNI COM NAV INT DEM CNT STA PRE GOV LOC"');
