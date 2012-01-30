@@ -1,0 +1,14 @@
+div.galeria{padding: 10px; float: left; text-align: center;}
+
+img.thumb{width: 110px; height: 110px;}
+img.revista{width: 249px; height: 300px;}
+img.lista-revista{width: 83px; height: 100px;}
+
+li.coverflow{margin: 0 8px 10px; float: left;}
+li.coverflow small{margin-bottom: 5px; display: block;}
+img.coverflow{width: 110px; height: 110px; cursor: move;}
+
+img.destaque{width: 210px; height: 153px; margin: 0 auto;}
+img.lista-destaque{width: 100px; height: 73px;}
+
+img.painel{width: 80px; height: 80px;}

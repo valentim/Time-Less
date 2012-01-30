@@ -20,18 +20,16 @@ class Request {
 	}
 	
 	public function getController() {
-		$controler = "controler_";
-		$controler .= (isset($this->uri[1])) ? $this->uri[1] : $this->registry->get('controller'); 
-		return $controler;
+		return $this->controler;
 	}
 	
 	public function getAction() {
-		return (isset($this->uri[2])) ? $this->uri[2] : $this->registry->get('action');
+		return (isset($this->uri[1])) ? $this->uri[1] : $this->registry->get('action');
 	}
 	
 	public function getParam() {
 		foreach ($this->uri as $key => $param) {
-			if($key > 2) {
+			if($key > 1) {
 				array_push($this->param, $param);
 			}
 		}
@@ -39,10 +37,27 @@ class Request {
 	}
 	
 	private function dismemberUri() {
-		$this->uri = substr_replace($this->uri, ' ', -strlen($this->uri), 1);
+		$url = parse_url($this->registry->get('url'));
+		$this->uri = str_replace($url['path'], "/", $this->uri);
+		$this->uri = substr_replace($this->uri, "", -strlen($this->uri), 1);
+		$this->uri = preg_replace("/^[?]\S+/", " ", $this->uri);
+		
 		if(strrpos($this->uri, '/') == (strlen($this->uri) - 1)) {
 			$this->uri = substr_replace($this->uri, ' ', (strlen($this->uri) - 1), strlen($this->uri) );
 		}
+		
 		$this->uri = explode("/", trim($this->uri));
+		$this->delegateControler();
+	}
+	
+	private function delegateControler() {
+		
+		if(isset($this->uri[0]) && preg_match("/{$this->registry->get('admin')}/", $this->uri[0])) {
+			$this->controler = "controler_backend_";
+		} else {
+			$this->controler = "controler_frontend_";
+		}
+		
+		$this->controler .= (isset($this->uri[0]) && $this->uri[0] != '') ? $this->uri[0] : $this->registry->get('controller'); 	
 	}
 }

@@ -14,7 +14,7 @@ class Abstract_Controler {
 	public function __construct($action) {
 		$this->action = $action;
 		if(!method_exists($this, $this->action)) {
-			throw new Exception("Action não existe");
+			throw new Exception("Action não existe: {$this->action}");
 		}
 		call_user_func(array($this, $this->action));
 	}

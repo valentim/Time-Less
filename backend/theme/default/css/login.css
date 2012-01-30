@@ -1,0 +1,20 @@
+/* ! default.css */
+body{background-color: #EAEAEA; color: #5D5D5D; font-size: 90%;}
+ul#topo{padding: 10px 15px; ! important}
+/* Links */
+a:link{color: gray; text-decoration: none;}
+a:hover{color: gray; text-decoration: underline;}
+a:active{color: gray; text-decoration: underline;}
+a:visited{color: gray; text-decoration: none;}
+a:visited:hover{color: gray; text-decoration: none;}
+/* Login */
+form#login{background-color: #FFF; border: 10px solid #D5D5D5; font-size: 90%; margin: 60px auto 0; padding: 16px 16px 20px; width: 245px;}
+form#login p{background-image: url(../images/logo.gif); background-repeat: no-repeat; padding-left: 90px; padding-top: 20px; height: 90px;}
+form#login strong{display: block; color: black; font-size: 190%; font-weight: normal; line-height: normal;}
+form#login label{display: block; padding: 4px 0 2px;}
+form#login input{width: 100px;}
+form#login input.usuario{width: 100%; font-size: 155%; margin-bottom: 10px;}
+form#login input.botao{cursor: pointer; width: auto ! important;}
+/* Creditos */
+div#creditos{display: block; font-size: 80%; font-weight: normal; margin: 10px auto; width: 245px;}
+div#creditos{background-image: url(../images/icone.gif); background-repeat: no-repeat; padding: 5px 20px}
