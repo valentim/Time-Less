@@ -85,24 +85,34 @@
   * Define a url
   */
 $registry = Registry::getInstance();
-$registry->set('url', 'http://'.$_SERVER['SERVER_NAME'].'/timeLess/');
+$registry->set('url', 'http://'.$_SERVER['SERVER_NAME'].'/timeless/');
 
 /*
  * Define theme skin
  */
-$registry->set('skin', $registry->get('url').'theme');
+$registry->set('skin', $registry->get('url').'frontend/theme/default');
+
+/*
+ * Define Admin
+ */
+$registry->set('admin', 'admin');
+
+/*
+ * Define theme skin Admin
+ */
+$registry->set('skinAdmin', $registry->get('url').'backend/theme/default');
 
 /*
  * Define Controller e Action Iniciais
  */
-$registry->set('controller', 'welcome');
+$registry->set('controller', 'home');
 $registry->set('action', 'index');
 
 /*
  * Define Banco de dados
  */
-$registry->set("mysql", new Database_Pdo("mysql:host=host;dbname=db","user", "pass"));
+$registry->set("mysql", new Database_Pdo("mysql:host=localhost;dbname=cms","root", "asdf"));
 
-$request = new Request();
-$controler = $request->getController();
-new $controler($request->getAction());
+$registry->set('request',new Request());
+$controler = $registry->get('request')->getController();
+new $controler($registry->get('request')->getAction());
