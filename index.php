@@ -101,7 +101,7 @@ $registry->set('action', 'index');
 /*
  * Define Banco de dados
  */
-$registry->set("mysql", new Database_Pdo("mysql:host=66.7.218.190;dbname=wwwcria_centova","wwwcria_streamin", "thi283716"));
+$registry->set("mysql", new Database_Pdo("mysql:host=host;dbname=db","user", "pass"));
 
 $request = new Request();
 $controler = $request->getController();
