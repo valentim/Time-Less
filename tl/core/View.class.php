@@ -22,7 +22,7 @@ class View {
 		foreach ($this->view as $view) {
 			$key = array_keys($view);
 			$value = array_values($view);
-			$file = realpath("tl/apl/view/{$key[0]}.php");
+			$file = realpath("tl/apl/".Registry::getInstance()->get('path')."/view/{$key[0]}.php");
 			$this->replaceKeysWithRealpath($i++, $key[0], array($file=>$value[0]));
 		}
 	}

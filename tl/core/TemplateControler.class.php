@@ -13,7 +13,7 @@ class TemplateControler extends Abstract_Controler {
 							);
 	
 	protected function addView($file, array $data = array(), $path = null) {
-		
+
 		if(isset($path)) {
 			$path .= '/';
 		}
