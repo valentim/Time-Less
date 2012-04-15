@@ -61,8 +61,13 @@ class Request {
 	}
 	
 	private function selectSide($url) {
-		preg_match('/\/.*?\//', $url, $controler);
 		
+		if($this->uri != $this->uri.'/') {
+			$this->uri .= '/';
+		}
+		
+		preg_match('/\/.*?\//', $this->uri, $controler);
+
 		if(preg_match("/^\/{$this->registry->get('admin')}\/$/", $controler[0])) {
 			$this->uri = str_replace($controler[0], "/", $this->uri);
 			$this->registry->set('path', 'backend');
